@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 import type { NextPageWithLayout } from "./_app";
 import Layout from "../components/layout";
+import Carousel, { CarouselItem } from "../components/carousel";
 import Head from "next/head";
 
 const Gallery: NextPageWithLayout = () => {
@@ -38,7 +39,20 @@ const Gallery: NextPageWithLayout = () => {
         />
         <link rel="manifest" href="/favicon/site.webmanifest" />
       </Head>
-      <h1>Gallery</h1>
+      <div className="w-96 h-96 flex flex-col justify-center text-center">
+        <h1 className="py-5">Gallery</h1>
+        <Carousel>
+          <CarouselItem>
+            <div>Item 1</div>
+          </CarouselItem>
+          <CarouselItem>
+            <div>Item 2</div>
+          </CarouselItem>
+          <CarouselItem>
+            <div>Item 3</div>
+          </CarouselItem>
+        </Carousel>
+      </div>
     </div>
   );
 };
