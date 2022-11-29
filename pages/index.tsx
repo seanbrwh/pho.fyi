@@ -1,7 +1,10 @@
 import type { ReactElement } from "react";
 import type { NextPageWithLayout } from "./_app";
-import Layout from "../components/layout";
 import Head from "next/head";
+import Layout from "../components/layout";
+import Contact from "../components/contact";
+import { CarouselItem } from "../components/carousel/carouselItem";
+import InfiniteCarousel from "../components/carousel/infiniteCarousel";
 
 const Home: NextPageWithLayout = () => {
   return (
@@ -42,8 +45,23 @@ const Home: NextPageWithLayout = () => {
         <div className="border-solid border-2 border-primary col-span-6 row-span-2 flex justify-center items-center berfore:content-[attr(before)]">
           About
         </div>
-        <div className="border-solid border-2 border-primary col-span-4 row-span-2 flex justify-center items-center">
-          Gallery
+        <div className="col-span-4 row-span-2 flex justify-center items-center">
+          <div className="w-full max-h-fit">
+            <InfiniteCarousel>
+              <CarouselItem>
+                <div>Item 1</div>
+              </CarouselItem>
+              <CarouselItem>
+                <div>Item 2</div>
+              </CarouselItem>
+              <CarouselItem>
+                <div>Item 3</div>
+              </CarouselItem>
+              <CarouselItem>
+                <div>Item 4</div>
+              </CarouselItem>
+            </InfiniteCarousel>
+          </div>
         </div>
         <div className="border-solid border-2 border-primary row-start-5 col-start-3 col-span-4 row-span-2 flex justify-center items-center">
           Shop
@@ -53,8 +71,8 @@ const Home: NextPageWithLayout = () => {
         <div className="border-solid border-2 border-primary col-span-4 row-span-2 flex justify-center items-center berfore:content-[attr(before)]">
           Blog
         </div>
-        <div className="border-solid border-2 border-primary col-span-6 row-span-4 flex justify-center items-center">
-          Contact
+        <div className="col-span-6 row-span-4 flex justify-center items-center">
+          <Contact />
         </div>
       </div>
     </div>

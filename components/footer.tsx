@@ -14,11 +14,11 @@ export default function Footer() {
       <div className="w-1/2 font-sans">
         &copy; {year} Sean White All rights reserved
       </div>
-      <div className="w-1/2 flex justify-around text-3xl text-gray-600 ">
-        <FontAwesomeIcon icon={faFacebook} />
-        <FontAwesomeIcon icon={faYoutube} />
-        <FontAwesomeIcon icon={faTwitter} />
-        <FontAwesomeIcon icon={faInstagram} />
+      <div className="w-1/2 flex justify-around text-3xl text-white ">
+        <FontAwesomeIcon icon={faFacebook} className="hover:text-blue-700" />
+        <FontAwesomeIcon icon={faYoutube} className="hover:text-red-700" />
+        <FontAwesomeIcon icon={faTwitter} className="hover:text-blue-400" />
+        <FontAwesomeIcon icon={faInstagram} className="hover:text-yellow-300" />
       </div>
     </footer>
   );
