@@ -3,7 +3,7 @@ import type { NextPageWithLayout } from "./_app";
 import Layout from "../components/layout";
 import Head from "next/head";
 
-const Page: NextPageWithLayout = () => {
+const Home: NextPageWithLayout = () => {
   return (
     <div className="w-full h-full p-10 mt-20">
       <Head>
@@ -12,7 +12,7 @@ const Page: NextPageWithLayout = () => {
           name="description"
           content="A website to showcase art as well as sell it"
         />
-        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+        <meta httpEquiv="Content-Type" content="text/html;charset=UTF-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link
           rel="shortcut icon"
@@ -50,10 +50,10 @@ const Page: NextPageWithLayout = () => {
         </div>
       </div>
       <div className="grid grid-cols-6 grid-rows-4 gap-10 w-full h-full pb-20">
-        <div className="border-solid border-2 border-primary col-span-6 row-span-2 flex justify-center items-center berfore:content-[attr(before)]">
+        <div className="border-solid border-2 border-primary col-span-4 row-span-2 flex justify-center items-center berfore:content-[attr(before)]">
           Blog
         </div>
-        <div className="border-solid border-2 border-primary col-span-4 row-span-2 col-start-3 flex justify-center items-center">
+        <div className="border-solid border-2 border-primary col-span-6 row-span-4 flex justify-center items-center">
           Contact
         </div>
       </div>
@@ -61,8 +61,8 @@ const Page: NextPageWithLayout = () => {
   );
 };
 
-Page.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>;
+Home.getLayout = function getLayout(home: ReactElement) {
+  return <Layout>{home}</Layout>;
 };
 
-export default Page;
+export default Home;
