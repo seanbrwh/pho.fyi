@@ -42,7 +42,7 @@ const Home: NextPageWithLayout = () => {
         <link rel="manifest" href="/favicon/site.webmanifest" />
       </Head>
       <div className="grid grid-cols-6 grid-rows-6 gap-10 w-full h-full pb-20">
-        <div className="border-solid border-2 border-primary col-span-6 row-span-2 flex justify-center items-center berfore:content-[attr(before)]">
+        <div className="rounded-md shadow-xl  col-span-6 row-span-2 flex justify-center items-center berfore:content-[attr(before)]">
           About
         </div>
         <div className="col-span-4 row-span-2 flex justify-center items-center">
@@ -63,12 +63,12 @@ const Home: NextPageWithLayout = () => {
             </InfiniteCarousel>
           </div>
         </div>
-        <div className="border-solid border-2 border-primary row-start-5 col-start-3 col-span-4 row-span-2 flex justify-center items-center">
+        <div className=" rounded-md shadow-xl  row-start-5 col-start-3 col-span-4 row-span-2 flex justify-center items-center">
           Shop
         </div>
       </div>
       <div className="grid grid-cols-6 grid-rows-4 gap-10 w-full h-full pb-20">
-        <div className="border-solid border-2 border-primary col-span-4 row-span-2 flex justify-center items-center berfore:content-[attr(before)]">
+        <div className=" rounded-md shadow-xl col-span-4 row-span-2 flex justify-center items-center berfore:content-[attr(before)]">
           Blog
         </div>
         <div className="col-span-6 row-span-4 flex justify-center items-center">
