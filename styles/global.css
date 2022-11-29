@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: Mikado;
+  font-weight: bold;
+  src: url(/fonts/Mikado Bold.otf) format("opentype");
+}

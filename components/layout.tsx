@@ -6,7 +6,9 @@ export default function Layout({ children }: { children: ReactElement }) {
   return (
     <>
       <Navbar />
-      <main>{children}</main>
+      <main className="w-full h-screen flex justify-center items-center">
+        {children}
+      </main>
       <Footer />
     </>
   );
