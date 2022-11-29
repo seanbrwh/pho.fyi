@@ -11,7 +11,7 @@ export default function Footer() {
   let year = date.getFullYear();
   return (
     <footer className="w-full h-12 bg-secondary fixed bottom-0 flex items-center justify-between px-5">
-      <div className="w-1/2 font-sans">
+      <div className="w-1/2 font-sans text-white">
         &copy; {year} Sean White All rights reserved
       </div>
       <div className="w-1/2 flex justify-around text-3xl text-white ">

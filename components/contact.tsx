@@ -20,7 +20,7 @@ export default function Contact() {
               Email
             </label>
             <input type="email" name="email" id="email" />
-            <label className="text-tertiary py-1 my-2" htmlFor="email">
+            <label className="text-tertiary py-1 my-2" htmlFor="subject">
               Subject
             </label>
             <input type="subject" name="subject" id="subject" />
