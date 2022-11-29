@@ -1,4 +1,5 @@
-import "../styles/globals.css";
+import "../styles/reset.css";
+import "../styles/global.css";
 import { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
