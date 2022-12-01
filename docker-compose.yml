@@ -1,25 +1,24 @@
-version: "3.8"
+version: "3.1"
 services:
   db:
-    image: postgres:14.1-alpine
+    container_name: db_container
+    image: postgres
     restart: always
     environment:
-      POSTGRES_USER: $POSTGRES_USER
-      POSTGRES_PASSW0RD: $POSTGRES_PASS
-      POSTGRES_DB: $POSTGRES_DATB
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASS}
     ports:
       - "5432:5432"
     volumes:
       - db:/var/lib/postgresql/data
       - ./db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
-    env_file: .env.local
   pgAdmin:
     container_name: pgAdmin_container
     image: dpage/pgadmin4
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: $PGADMIN_DUSER
-      PGADMIN_DEFAULT_PASSWORD: $PGADMIN_DPASS
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DUSER}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DPASS}
     ports:
       - "5050:80"
 volumes:
