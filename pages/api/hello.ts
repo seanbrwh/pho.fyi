@@ -1,10 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { deflate } from "zlib";
+import conn from "../../db";
 
 type Data = {
   name: string;
 };
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  res.status(200).json({ name: "John Doe" });
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const d = Date.now();
+  const query = `INSERT INTO users(username, password, email, created_at, last_login) VALUES("sean white", "0863", "seanbrwh@gmail.com", "${d}", "${d}")`;
+
+  const result = await conn.query(query);
 }
