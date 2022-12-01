@@ -6,10 +6,7 @@ import Contact from "../components/contact";
 import { CarouselItem } from "../components/carousel/carouselItem";
 import InfiniteCarousel from "../components/carousel/infiniteCarousel";
 
-import { useToast } from "../components/toast";
-
 const Home: NextPageWithLayout = () => {
-  const toast = useToast();
   return (
     <div className="w-full h-full p-10 mt-20">
       <Head>
@@ -47,7 +44,6 @@ const Home: NextPageWithLayout = () => {
       <div className="grid grid-cols-6 grid-rows-6 gap-10 w-full h-full pb-20">
         <div className="rounded-md shadow-xl  col-span-6 row-span-2 flex justify-center items-center berfore:content-[attr(before)]">
           About
-          <button onClick={() => toast.open("Something")}>Open</button>
         </div>
         <div className="col-span-4 row-span-2 flex justify-center items-center">
           <div className="w-full max-h-fit">
