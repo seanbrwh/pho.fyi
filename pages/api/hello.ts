@@ -9,8 +9,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const d = Date.now();
-  const query = `INSERT INTO users(username, password, email, created_at, last_login) VALUES("sean white", "0863", "seanbrwh@gmail.com", "${d}", "${d}")`;
+  const unix = new Date().toLocaleString();
+  const query = `INSERT INTO users(username, password, email, created_on, last_login) VALUES('sean white', '0863', 'seanbrwh@gmail.com', '${unix}', '${unix}')`;
 
   const result = await conn.query(query);
+
+  console.log("result", result);
 }
