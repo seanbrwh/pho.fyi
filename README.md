@@ -51,3 +51,23 @@ npm run lint
 ### Open
 
 [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+<br/>
+<br/>
+<br/>
+
+## Migrations and schema evolution
+
+Update your schema found in prisma/schema.prisma
+
+Then process the schema with the following command
+
+```bash
+  npx prisma migrate dev --name [new-model-name]
+  # or
+  pnpm prisma migrate dev --name [new-model-name]
+```
+
+This command will create a new sql migration file
+apply the generated sql migration to the database
+the regenerate the prisma client
