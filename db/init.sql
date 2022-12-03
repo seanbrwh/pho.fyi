@@ -1,5 +1,4 @@
 -- Users
-
 CREATE TABLE IF NOT EXISTS users(
   user_id serial PRIMARY KEY,
   username VARCHAR (50) NOT NULL,
@@ -24,20 +23,12 @@ CREATE TABLE user_roles(
 );
 
 -- Blog
-
 CREATE TABLE blog(
   blog_id serial PRIMARY KEY,
   title VARCHAR (50),
   content VARCHAR (255),
   comment_id INT,
   created_on TIMESTAMP
-);
-
-CREATE TABLE comments(
-  comment_id serial PRIMARY KEY,
-  content varchar(255),
-  FOREIGN KEY (comment_id) REFERENCES blog (blog_id),
-  FOREIGN KEY (comment_id) REFERENCES comment_photos (comment_photo_id)
 );
 
 CREATE TABLE comment_photos(
@@ -49,19 +40,14 @@ CREATE TABLE comment_photos(
   created_on TIMESTAMP
 );
 
--- Products
-
-CREATE TABLE products(
-  product_id serial PRIMARY KEY,
-  name VARCHAR (255),
-  description VARCHAR (255),
-  price INT,
-  FOREIGN KEY (product_id) REFERENCES product_ratings (ratings_id)
-  FOREIGN KEY (product_id) REFERENCES product_returns (return_id) ,
-  FOREIGN KEY (product_id) REFERENCES product_reviews (review_id) ,
-  FOREIGN KEY (product_id) REFERENCES product_photos (product_photo_id) 
+CREATE TABLE comments(
+  comment_id serial PRIMARY KEY,
+  content varchar(255),
+  FOREIGN KEY (comment_id) REFERENCES blog (blog_id),
+  FOREIGN KEY (comment_id) REFERENCES comment_photos (comment_photo_id)
 );
 
+-- Products
 CREATE TABLE product_photos(
   product_photo_id serial PRIMARY KEY,
   small_photo_url VARCHAR (500),
@@ -69,6 +55,53 @@ CREATE TABLE product_photos(
   lrg_photo_url VARCHAR (500),
   xl_photo_url VARCHAR (500),
   created_on TIMESTAMP
+);
+
+CREATE TABLE product_ratings(
+  ratings_id serial PRIMARY KEY,
+  created_on TIMESTAMP,
+  overall_rating INT,
+  shipping_rating INT,
+  customer_service_rating INT,
+  content VARCHAR (255)
+);
+
+CREATE TABLE product_reviews(
+  review_id serial PRIMARY KEY,
+  created_on TIMESTAMP,
+  content VARCHAR (255)
+);
+
+CREATE TABLE product_returns(
+  return_id serial PRIMARY KEY,
+  return_availibity BOOLEAN
+);
+
+CREATE TABLE product_holidays(
+  holiday_id serial PRIMARY KEY,
+  holiday_name VARCHAR (255),
+  holiday_date TIMESTAMP
+);
+
+CREATE TABLE product_sales(
+  sale_id serial PRIMARY KEY,
+  sales_name VARCHAR (255),
+  sales_date TIMESTAMP
+);
+
+CREATE TABLE product_categories(
+  category_id serial PRIMARY KEY,
+  category_name VARCHAR (255)
+);
+
+CREATE TABLE product_rooms(
+  room_id serial PRIMARY KEY,
+  room_name VARCHAR (255)
+);
+
+CREATE TABLE product_occasions(
+  occasion_id serial PRIMARY KEY,
+  occasion_name VARCHAR (255)
 );
 
 CREATE TABLE product_more_detail(
@@ -85,52 +118,17 @@ CREATE TABLE product_more_detail(
   FOREIGN KEY (more_detail_id) REFERENCES product_occasions (occasion_id),
   FOREIGN KEY (more_detail_id) REFERENCES product_categories (category_id),
   FOREIGN KEY (more_detail_id) REFERENCES product_holidays (holiday_id),
-  FOREIGN KEY (more_detail_id) REFERENCES product_sales (sale_id),
+  FOREIGN KEY (more_detail_id) REFERENCES product_sales (sale_id)
 );
 
-CREATE TABLE product_ratings(
-  ratings_id serial PRIMARY KEY,
-  created_on TIMESTAMP,
-  overall_rating INT,
-  shipping_rating INT,
-  customer_service_rating INT,
-  content VARCHAR (255)
-);
-
-CREATE TABLE product_reviews(
-  reviews_id serial PRIMARY KEY,
-  created_on TIMESTAMP,
-  content VARCHAR (255),
-);
-
-CREATE TABLE product_returns(
-  returns_id serial PRIMARY KEY,
-  return_availibity BOOLEAN,
-);
-
-CREATE TABLE product_holidays(
-  holidays_id serial PRIMARY KEY,
-  holiday_name VARCHAR (255),
-  holiday_date TIMESTAMP
-);
-
-CREATE TABLE product_sales(
-  sales_id serial PRIMARY KEY,
-  sales_name VARCHAR (255),
-  sales_date TIMESTAMP,
-);
-
-CREATE TABLE product_categories(
-  categories_id serial PRIMARY KEY,
-  category_name VARCHAR (255),
-);
-
-CREATE TABLE product_rooms(
-  rooms_id serial PRIMARY KEY,
-  room_name VARCHAR (255),
-);
-
-CREATE TABLE product_occasions(
-  occasions_id serial PRIMARY KEY,
-  occasion_name VARCHAR (255),
+CREATE TABLE products(
+  product_id serial PRIMARY KEY,
+  name VARCHAR (255),
+  description VARCHAR (255),
+  price INT,
+  FOREIGN KEY (product_id) REFERENCES product_ratings (ratings_id),
+  FOREIGN KEY (product_id) REFERENCES product_returns (return_id),
+  FOREIGN KEY (product_id) REFERENCES product_reviews (review_id),
+  FOREIGN KEY (product_id) REFERENCES product_photos (product_photo_id),
+  FOREIGN KEY (product_id) REFERENCES product_more_detail(more_detail_id)
 );

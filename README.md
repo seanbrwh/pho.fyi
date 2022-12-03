@@ -10,8 +10,6 @@
 ```bash
 pnpm dev
 # or
-yarn dev
-# or
 npm run dev
 ```
 
@@ -19,8 +17,6 @@ npm run dev
 
 ```bash
 pnpm build
-# or
-yarn build
 # or
 npm run build
 ```
@@ -30,8 +26,6 @@ npm run build
 ```bash
 pnpm start
 # or
-yarn start
-# or
 npm run start
 ```
 
@@ -39,8 +33,6 @@ npm run start
 
 ```bash
 pnpm lint
-# or
-yarn lint
 # or
 npm run lint
 ```
@@ -71,3 +63,46 @@ Then process the schema with the following command
 This command will create a new sql migration file
 apply the generated sql migration to the database
 the regenerate the prisma client
+
+## Database introspection - Create a schema based on your database
+
+```bash
+  npx prisma db pull
+  # or
+  pnpm prisma db pull
+```
+
+## Database baseline create an inital migration
+
+```bash
+  npx prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --script > prisma/migrations/init/migration.sql
+  # or
+  pnpm prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --script > prisma/migrations/init/migration.sql
+```
+
+After this is completet review the migration to make sure everything is ok
+
+Next mark the migration as applied
+
+```bash
+  npx prisma migrate resolve --applied init
+  # or
+  pnpm prisma migrate resolve --applied init
+```
+
+## Prisma client generation
+
+After introspection and database baseline, you can generate the client with the following.
+
+```bash
+  npx prisma generate
+  #or
+  pnpm prisma generate
+```
+
+After the client is generated you can use it the following way
+
+```javascript
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+```

@@ -5,8 +5,16 @@ import Layout from "../components/layout";
 import Contact from "../components/contact";
 import { CarouselItem } from "../components/carousel/carouselItem";
 import InfiniteCarousel from "../components/carousel/infiniteCarousel";
+import { prisma, PrismaClient } from "@prisma/client";
 
 const Home: NextPageWithLayout = () => {
+  // TODO useSWR
+  // https://swr.vercel.app/docs/with-nextjs
+  // prisma example
+  // const { data, error } = useSWR("/api/posts", fetcher);
+  // if (error) return <div>An error occured</div>;
+  // if (!data) return <div>Loading ...</div>;
+
   return (
     <div className="w-full h-full p-10 mt-20">
       <Head>
@@ -78,6 +86,30 @@ const Home: NextPageWithLayout = () => {
     </div>
   );
 };
+
+// Prisma example
+
+// export async function getStaticProps() {
+//   const prisma = new PrismaClient();
+//   const posts = await prisma.blog.findMany();
+
+//   return {
+//     props: { posts },
+//   };
+// }
+
+// export const getServerSideProps = async ({ req }: { req: any }) => {
+//   const prisma = new PrismaClient();
+//   const token = req.headers.AUTHORIZATION;
+//   const userId = await getUserId(token);
+//   const posts = await prisma.blog.findMany({
+//     where: { comment_id: userId },
+//   });
+
+//   return {
+//     props: { posts },
+//   };
+// };
 
 Home.getLayout = function getLayout(home: ReactElement) {
   return <Layout>{home}</Layout>;

@@ -32,3 +32,124 @@ model users {
   last_login DateTime?    @db.Timestamp(6)
   user_roles user_roles[]
 }
+
+model blog {
+  blog_id    Int       @id @default(autoincrement())
+  title      String?   @db.VarChar(50)
+  content    String?   @db.VarChar(255)
+  comment_id Int?
+  created_on DateTime? @db.Timestamp(6)
+  comments   comments?
+}
+
+model comment_photos {
+  comment_photo_id Int       @id @default(autoincrement())
+  small_photo_url  String?   @db.VarChar(500)
+  med_photo_url    String?   @db.VarChar(500)
+  lrg_photo_url    String?   @db.VarChar(500)
+  xl_photo_url     String?   @db.VarChar(500)
+  created_on       DateTime? @db.Timestamp(6)
+  comments         comments?
+}
+
+model comments {
+  comment_id     Int            @id @default(autoincrement())
+  content        String?        @db.VarChar(255)
+  blog           blog           @relation(fields: [comment_id], references: [blog_id], onDelete: NoAction, onUpdate: NoAction)
+  comment_photos comment_photos @relation(fields: [comment_id], references: [comment_photo_id], onDelete: NoAction, onUpdate: NoAction, map: "comments_comment_id_fkey1")
+}
+
+model product_categories {
+  category_id         Int                  @id @default(autoincrement())
+  category_name       String?              @db.VarChar(255)
+  product_more_detail product_more_detail?
+}
+
+model product_holidays {
+  holiday_id          Int                  @id @default(autoincrement())
+  holiday_name        String?              @db.VarChar(255)
+  holiday_date        DateTime?            @db.Timestamp(6)
+  product_more_detail product_more_detail?
+}
+
+model product_more_detail {
+  more_detail_id     Int                @id @default(autoincrement())
+  product_type       String?            @db.VarChar(250)
+  product_style      String?            @db.VarChar(250)
+  shipping_price     Int?
+  size               String?            @db.VarChar(250)
+  quantity           Int?
+  ready_to_ship      Boolean?
+  color              String?            @db.VarChar(250)
+  customize_able     Boolean?
+  product_rooms      product_rooms      @relation(fields: [more_detail_id], references: [room_id], onDelete: NoAction, onUpdate: NoAction)
+  product_occasions  product_occasions  @relation(fields: [more_detail_id], references: [occasion_id], onDelete: NoAction, onUpdate: NoAction, map: "product_more_detail_more_detail_id_fkey1")
+  product_categories product_categories @relation(fields: [more_detail_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction, map: "product_more_detail_more_detail_id_fkey2")
+  product_holidays   product_holidays   @relation(fields: [more_detail_id], references: [holiday_id], onDelete: NoAction, onUpdate: NoAction, map: "product_more_detail_more_detail_id_fkey3")
+  product_sales      product_sales      @relation(fields: [more_detail_id], references: [sale_id], onDelete: NoAction, onUpdate: NoAction, map: "product_more_detail_more_detail_id_fkey4")
+  products           products?
+}
+
+model product_occasions {
+  occasion_id         Int                  @id @default(autoincrement())
+  occasion_name       String?              @db.VarChar(255)
+  product_more_detail product_more_detail?
+}
+
+model product_photos {
+  product_photo_id Int       @id @default(autoincrement())
+  small_photo_url  String?   @db.VarChar(500)
+  med_photo_url    String?   @db.VarChar(500)
+  lrg_photo_url    String?   @db.VarChar(500)
+  xl_photo_url     String?   @db.VarChar(500)
+  created_on       DateTime? @db.Timestamp(6)
+  products         products?
+}
+
+model product_ratings {
+  ratings_id              Int       @id @default(autoincrement())
+  created_on              DateTime? @db.Timestamp(6)
+  overall_rating          Int?
+  shipping_rating         Int?
+  customer_service_rating Int?
+  content                 String?   @db.VarChar(255)
+  products                products?
+}
+
+model product_returns {
+  return_id         Int       @id @default(autoincrement())
+  return_availibity Boolean?
+  products          products?
+}
+
+model product_reviews {
+  review_id  Int       @id @default(autoincrement())
+  created_on DateTime? @db.Timestamp(6)
+  content    String?   @db.VarChar(255)
+  products   products?
+}
+
+model product_rooms {
+  room_id             Int                  @id @default(autoincrement())
+  room_name           String?              @db.VarChar(255)
+  product_more_detail product_more_detail?
+}
+
+model product_sales {
+  sale_id             Int                  @id @default(autoincrement())
+  sales_name          String?              @db.VarChar(255)
+  sales_date          DateTime?            @db.Timestamp(6)
+  product_more_detail product_more_detail?
+}
+
+model products {
+  product_id          Int                 @id @default(autoincrement())
+  name                String?             @db.VarChar(255)
+  description         String?             @db.VarChar(255)
+  price               Int?
+  product_ratings     product_ratings     @relation(fields: [product_id], references: [ratings_id], onDelete: NoAction, onUpdate: NoAction)
+  product_returns     product_returns     @relation(fields: [product_id], references: [return_id], onDelete: NoAction, onUpdate: NoAction, map: "products_product_id_fkey1")
+  product_reviews     product_reviews     @relation(fields: [product_id], references: [review_id], onDelete: NoAction, onUpdate: NoAction, map: "products_product_id_fkey2")
+  product_photos      product_photos      @relation(fields: [product_id], references: [product_photo_id], onDelete: NoAction, onUpdate: NoAction, map: "products_product_id_fkey3")
+  product_more_detail product_more_detail @relation(fields: [product_id], references: [more_detail_id], onDelete: NoAction, onUpdate: NoAction, map: "products_product_id_fkey4")
+}
