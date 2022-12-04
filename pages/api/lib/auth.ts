@@ -5,7 +5,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 const prisma = new PrismaClient();
 var LocalStrategy = require("passport-local");
 
-export const auth = passport.use(
+passport.use(
   new LocalStrategy(function verify(
     username: string,
     password: string,
@@ -44,12 +44,4 @@ export const auth = passport.use(
   })
 );
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  return passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login",
-  });
-}
+module.exports = passport;
