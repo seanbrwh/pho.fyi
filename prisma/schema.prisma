@@ -7,32 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model roles {
-  role_id    Int          @id @default(autoincrement())
-  role_name  String       @unique @db.VarChar(255)
-  user_roles user_roles[]
-}
-
-model user_roles {
-  user_id    Int
-  role_id    Int
-  grant_date DateTime? @db.Timestamp(6)
-  roles      roles     @relation(fields: [role_id], references: [role_id], onDelete: NoAction, onUpdate: NoAction)
-  users      users     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
-
-  @@id([user_id, role_id])
-}
-
-model users {
-  user_id    Int          @id @default(autoincrement())
-  username   String       @db.VarChar(50)
-  password   String       @db.VarChar(50)
-  email      String       @unique @db.VarChar(255)
-  created_on DateTime     @db.Timestamp(6)
-  last_login DateTime?    @db.Timestamp(6)
-  user_roles user_roles[]
-}
-
 model blog {
   blog_id    Int       @id @default(autoincrement())
   title      String?   @db.VarChar(50)
@@ -152,4 +126,31 @@ model products {
   product_reviews     product_reviews     @relation(fields: [product_id], references: [review_id], onDelete: NoAction, onUpdate: NoAction, map: "products_product_id_fkey2")
   product_photos      product_photos      @relation(fields: [product_id], references: [product_photo_id], onDelete: NoAction, onUpdate: NoAction, map: "products_product_id_fkey3")
   product_more_detail product_more_detail @relation(fields: [product_id], references: [more_detail_id], onDelete: NoAction, onUpdate: NoAction, map: "products_product_id_fkey4")
+}
+
+model roles {
+  role_id    Int          @id @default(autoincrement())
+  role_name  String       @unique @db.VarChar(255)
+  user_roles user_roles[]
+}
+
+model user_roles {
+  user_id    Int
+  role_id    Int
+  grant_date DateTime? @db.Timestamp(6)
+  roles      roles     @relation(fields: [role_id], references: [role_id], onDelete: NoAction, onUpdate: NoAction)
+  users      users     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([user_id, role_id])
+}
+
+model users {
+  user_id    Int          @id @default(autoincrement())
+  username   String       @db.VarChar(50)
+  password   String       @db.VarChar(50)
+  email      String       @unique @db.VarChar(255)
+  created_on DateTime     @db.Timestamp(6)
+  last_login DateTime?    @db.Timestamp(6)
+  salt       String?
+  user_roles user_roles[]
 }
