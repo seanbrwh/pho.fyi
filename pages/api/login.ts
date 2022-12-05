@@ -1,16 +1,17 @@
-import { PrismaClient } from "@prisma/client";
-import type { NextApiRequest, NextApiResponse } from "next";
-import passport from "passport";
-import { off } from "process";
+import nextConnect from "next-connect";
+import auth from "../../middleware/auth";
+import passport from "../../lib/passport";
+import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method === "POST") {
-    passport.authenticate("local", {
-      successRedirect: "/",
-      failureRedirect: "/login",
-    });
-  }
-}
+const handler = nextConnect();
+
+handler
+  .use(auth)
+  .post(
+    passport.authenticate("local"),
+    (req: NextApiRequest, res: NextApiResponse) => {
+      res.json({ user: req.user });
+    }
+  );
+
+export default handler;

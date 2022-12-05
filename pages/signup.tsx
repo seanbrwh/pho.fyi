@@ -1,14 +1,13 @@
-import React, { ReactElement, useEffect } from "react";
-import { useState } from "react";
-import Head from "next/head";
+import { useState, useEffect, ReactEventHandler } from "react";
 import Router from "next/router";
 import Link from "next/link";
-
+import { useUser } from "../hooks/useUser";
+import type { ReactElement } from "react";
 import type { NextPageWithLayout } from "./_app";
 import Layout from "../components/layout";
-import { useUser } from "../hooks/useUser";
+import Head from "next/head";
 
-const Login: NextPageWithLayout = () => {
+const SignUp: NextPageWithLayout = () => {
   const [user, { mutate }] = useUser();
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -19,29 +18,34 @@ const Login: NextPageWithLayout = () => {
       username: e.currentTarget.username.value,
       password: e.currentTarget.password.value,
     };
-    const res = await fetch("/api/login", {
+
+    if (body.password !== e.currentTarget.rpassword.value) {
+      setErrorMsg(`The passwords don't match`);
+      return;
+    }
+
+    const res = await fetch("/api/users", {
       method: "POST",
-      headers: { "Content-type": "appllication/json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
 
-    if (res.status === 200) {
+    if (res.status === 201) {
       const userObj = await res.json();
+      // set user to useSWR state
       mutate(userObj);
     } else {
-      setErrorMsg("Incorrect username or password.");
+      setErrorMsg(await res.text());
     }
   }
 
   useEffect(() => {
+    // redirect to home if user is authenticated
     if (user) Router.push("/");
   }, [user]);
 
   return (
     <>
-      <Head>
-        <title>Pho Moon Art Creations | Login</title>
-      </Head>
       <div className="flex justify-center items-center w-full h-full">
         <form
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -69,18 +73,29 @@ const Login: NextPageWithLayout = () => {
               placeholder="Pass****"
             />
           </div>
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Repeat password
+            </label>
+            <input
+              className="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              id="rpassword"
+              type="r-password"
+              placeholder="Pass****"
+            />
+          </div>
           <div className="flex items-center justify-between">
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
             >
-              Sign In
+              Sign Up
             </button>
             <Link
-              className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+              className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 mx-5"
               href="/signup"
             >
-              Create an account
+              Already have an acocunt. Login
             </Link>
           </div>
         </form>
@@ -89,8 +104,8 @@ const Login: NextPageWithLayout = () => {
   );
 };
 
-Login.getLayout = function getLayout(login: ReactElement) {
-  return <Layout>{login}</Layout>;
+SignUp.getLayout = function getLayout(signUp: ReactElement) {
+  return <Layout>{signUp}</Layout>;
 };
 
-export default Login;
+export default SignUp;
