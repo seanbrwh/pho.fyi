@@ -5,13 +5,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = nextConnect();
 
-handler
-  .use(auth)
-  .post(
-    passport.authenticate("local"),
-    (req: NextApiRequest, res: NextApiResponse) => {
-      res.json({ user: req.user });
-    }
-  );
+handler.use(auth).post(passport.authenticate("local"), (req: any, res: any) => {
+  res.json({ user: req.user });
+});
 
 export default handler;
