@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { useState } from "react";
 import Head from "next/head";
 import Router from "next/router";

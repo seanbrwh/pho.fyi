@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, ReactElement } from "react";
+import React, { useState, useMemo, ReactElement } from "react";
 import { createPortal } from "react-dom";
 
 import { ToastContext } from "./toastContext";
@@ -36,32 +36,22 @@ export const ToastProvider = ({
   };
   const contextValue = useMemo(() => ({ open }), []);
 
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-
-    return () => setMounted(false);
-  }, []);
-
   return (
     <ToastContext.Provider value={contextValue}>
       {children}
 
-      {mounted
-        ? createPortal(
-            <>
-              {toasts.map((toast: any): ReactElement => {
-                return (
-                  <Toast key={toast.id} close={() => close(toast.id)}>
-                    {toast.content}
-                  </Toast>
-                );
-              })}
-            </>,
-            document.body
-          )
-        : null}
+      {createPortal(
+        <>
+          {toasts.map((toast: any): ReactElement => {
+            return (
+              <Toast key={toast.id} close={() => close(toast.id)}>
+                {toast.content}
+              </Toast>
+            );
+          })}
+        </>,
+        document.body
+      )}
     </ToastContext.Provider>
   );
 };

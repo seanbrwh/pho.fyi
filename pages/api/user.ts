@@ -1,5 +1,5 @@
 import nextConnect from "next-connect";
-import auth from "../../middleware/auth";
+import { auth } from "../../middleware/auth";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -17,7 +17,14 @@ handler
   })
   .post((req: any, res: any) => {
     const { username, password, name } = req.body;
-    prisma.users.create({ data: { username, password } });
+    prisma.users.create({
+      data: {
+        username: username,
+        password: password,
+        email: "",
+        created_on: Date.now().toLocaleString(),
+      },
+    });
     // createUser(req, { username, password, name });
     res.status(200).json({ success: true, message: "created new user" });
   })
@@ -32,12 +39,15 @@ handler
   })
   .put((req: any, res: any) => {
     const { name } = req.body;
-    const user = prisma.users.update({ where: { username: username } });
+    const user = prisma.users.update({
+      where: { user_id: 1 },
+      data: { username: name },
+    });
     // const user = updateUserByUsername(req, req.user.username, { name });
     res.json({ user });
   })
   .delete((req: any, res: any) => {
-    prisma.users.delete();
+    prisma.users.delete({ where: { user_id: 1 } });
     // deleteUser(req);
     req.logOut();
     res.status(204).end();

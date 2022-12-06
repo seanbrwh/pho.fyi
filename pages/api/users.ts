@@ -1,5 +1,5 @@
 import nextConnect from "next-connect";
-import auth from "../../middleware/auth";
+import { auth } from "../../middleware/auth";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -29,7 +29,14 @@ handler
     // Security-wise, you must hash the password before saving it
     // const hashedPass = await argon2.hash(password);
     // const user = { username, password: hashedPass, name }
-    prisma.users.create({ data: { ...user } });
+    prisma.users.create({
+      data: {
+        username: username,
+        password: password,
+        email: "",
+        created_on: Date.now().toLocaleString(),
+      },
+    });
     // createUser(req, user);
     req.logIn(user, (err: any) => {
       if (err) throw err;

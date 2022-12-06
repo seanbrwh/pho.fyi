@@ -2,7 +2,7 @@ import nextConnect from "next-connect";
 import passport from "../lib/passport";
 import session from "../lib/session";
 
-const auth = nextConnect()
+export const auth = nextConnect()
   .use(
     session({
       name: "sess",
@@ -16,10 +16,8 @@ const auth = nextConnect()
       },
     })
   )
-  .use((req, res, next) => {
+  .use((req: any, res: any, next: any) => {
     next();
   })
   .use(passport.initialize())
   .use(passport.session());
-
-export default auth;
