@@ -7,6 +7,8 @@ import { CarouselItem } from "../components/carousel/carouselItem";
 import InfiniteCarousel from "../components/carousel/infiniteCarousel";
 import { prisma, PrismaClient } from "@prisma/client";
 
+import { useToast } from "../components/toast/useToast";
+
 const Home: NextPageWithLayout = () => {
   // TODO useSWR
   // https://swr.vercel.app/docs/with-nextjs
@@ -14,6 +16,7 @@ const Home: NextPageWithLayout = () => {
   // const { data, error } = useSWR("/api/posts", fetcher);
   // if (error) return <div>An error occured</div>;
   // if (!data) return <div>Loading ...</div>;
+  const toast = useToast();
 
   return (
     <div className="w-full h-full p-10 mt-20">
@@ -52,6 +55,7 @@ const Home: NextPageWithLayout = () => {
       <div className="grid grid-cols-6 grid-rows-6 gap-10 w-full h-full pb-20">
         <div className="rounded-md shadow-xl  col-span-6 row-span-2 flex justify-center items-center berfore:content-[attr(before)]">
           About
+          <button onClick={() => toast.open("somethings")}>Something</button>
         </div>
         <div className="col-span-4 row-span-2 flex justify-center items-center">
           <div className="w-full max-h-fit">

@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { ToastContext } from "./toastContext";
 import { Toast } from "./toast";
 
-import { NextPageWithLayout } from "../../pages/_app";
+import Portal from "../../HOC/Portal";
 
 function generateUEID(): number {
   let first = (Math.random() * 46656) | 0;
@@ -40,18 +40,13 @@ export const ToastProvider = ({
     <ToastContext.Provider value={contextValue}>
       {children}
 
-      {createPortal(
-        <>
-          {toasts.map((toast: any): ReactElement => {
-            return (
-              <Toast key={toast.id} close={() => close(toast.id)}>
-                {toast.content}
-              </Toast>
-            );
-          })}
-        </>,
-        document.body
-      )}
+      <Portal>
+        {toasts.map((toast: any) => (
+          <Toast key={toast.id} close={() => close(toast.id)}>
+            {toast.content}
+          </Toast>
+        ))}
+      </Portal>
     </ToastContext.Provider>
   );
 };
