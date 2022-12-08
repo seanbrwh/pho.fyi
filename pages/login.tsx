@@ -49,13 +49,13 @@ const Login: NextPageWithLayout = () => {
         >
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Username
+              Email
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="username"
+              id="email"
               type="text"
-              placeholder="Username"
+              placeholder="doe@email.com"
             />
           </div>
           <div className="mb-6">
@@ -69,9 +69,9 @@ const Login: NextPageWithLayout = () => {
               placeholder="Pass****"
             />
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col items-center justify-between">
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-5"
               type="button"
             >
               Sign In

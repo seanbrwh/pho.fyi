@@ -1,4 +1,4 @@
-import React, { useState, ReactElement, useEffect } from "react";
+import React, { useState, ReactElement } from "react";
 
 const Carousel = ({ children }: { children: ReactElement[] }) => {
   const [activeIndex, setActiveIndex] = useState(0);

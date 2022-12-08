@@ -16,12 +16,12 @@ handler
     res.json({ user: req.user });
   })
   .post((req: any, res: any) => {
-    const { username, password, name } = req.body;
+    const { username, password, email } = req.body;
     prisma.users.create({
       data: {
         username: username,
         password: password,
-        email: "",
+        email: email,
         created_on: Date.now().toLocaleString(),
       },
     });
