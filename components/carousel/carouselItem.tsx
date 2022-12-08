@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-export const CarouselItem = ({
+const CarouselItem = ({
   children,
   width,
 }: {
@@ -16,3 +16,5 @@ export const CarouselItem = ({
     </div>
   );
 };
+
+export default CarouselItem;

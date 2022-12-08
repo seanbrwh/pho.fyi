@@ -3,7 +3,7 @@ import type { NextPageWithLayout } from "./_app";
 import Layout from "../components/layout";
 import Carousel from "../components/carousel/carousel";
 import InfiniteCarousel from "../components/carousel/infiniteCarousel";
-import { CarouselItem } from "../components/carousel/carouselItem";
+import CarouselItem from "../components/carousel/carouselItem";
 import Head from "next/head";
 import SwipeableCarousel from "../components/carousel/swipeableCarousel";
 
