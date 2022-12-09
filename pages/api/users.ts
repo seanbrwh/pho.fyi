@@ -9,12 +9,14 @@ const handler = nextConnect();
 handler
   .use(auth)
   .get((req: any, res: any) => {
+    // TODO get all users
     // For demo purpose only. You will never have an endpoint which returns all users.
     // Remove this in production
     res.json({ users: prisma.users.findMany() });
     // res.json({ users: getAllUsers(req) });
   })
   .post(async (req: any, res: any) => {
+    //TODO create users
     const { username, password, email } = req.body;
     if (!username || !password || !email) {
       return res.status(400).send("Missing fields");
@@ -30,6 +32,8 @@ handler
     if (usernameExsits) {
       return res.status(409).send("The username has already been used");
     }
+
+    //TODO hash password and create salt before creating users
     // Security-wise, you must hash the password before saving it
     // const hashedPass = await argon2.hash(password);
     // const user = { username, password: hashedPass, name }

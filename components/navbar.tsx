@@ -11,7 +11,7 @@ export default function Navbar() {
   const router = useRouter();
   return (
     <header className="w-full h-16 bg-secondary fixed top-0 flex flex-row justify-between items-center px-5 z-10">
-      <div className="w-1/2 font-serif text-2xl">Panda Moon Art Creations</div>
+      <div className="w-1/2 font-serif text-2xl">Moon | PandaCreations</div>
       <nav className="w-1/2 font-sans text-lg capitalize font-semibold">
         <ul className="flex flex-row justify-around ">
           <li>

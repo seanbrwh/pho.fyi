@@ -8,16 +8,24 @@ const handler = nextConnect();
 
 handler
   .use(auth)
-  .get((req: any, res: any) => {
+  .get(async (req: any, res: any) => {
+    // TODO get user by id
+    const { id } = req.body;
     // You do not generally want to return the whole user object
     // because it may contain sensitive field such as !!password!! Only return what needed
     // const { name, username, favoriteColor } = req.user
     // res.json({ user: { name, username, favoriteColor } })
-    res.json({ user: req.user });
+    const user = await prisma.users.findUnique({ where: { user_id: id } });
+    req.user = user;
+
+    const { username, email } = user;
+
+    res.json({ user: { username, email } });
   })
-  .post((req: any, res: any) => {
+  .post(async (req: any, res: any) => {
+    //TODO create user
     const { username, password, email } = req.body;
-    prisma.users.create({
+    const user = await prisma.users.create({
       data: {
         username: username,
         password: password,
@@ -25,12 +33,12 @@ handler
         created_on: Date.now().toLocaleString(),
       },
     });
+    req.user = user;
     // createUser(req, { username, password, name });
-    res.status(200).json({ success: true, message: "created new user" });
+    res.status(200).json({ success: true, message: "created new user", user });
   })
   .use((req: any, res: any, next) => {
-    // handlers after this (PUT, DELETE) all require an authenticated user
-    // This middleware to check if user is authenticated before continuing
+    //TODO make sure there is a user to update or delete a user
     if (!req.user) {
       res.status(401).send("unauthenticated");
     } else {
@@ -38,17 +46,18 @@ handler
     }
   })
   .put((req: any, res: any) => {
-    const { name } = req.body;
+    //TODO update user by id
+    const { id } = req.body;
     const user = prisma.users.update({
-      where: { user_id: 1 },
-      data: { username: name },
+      where: { user_id: id },
+      data: { ...req.body },
     });
-    // const user = updateUserByUsername(req, req.user.username, { name });
     res.json({ user });
   })
   .delete((req: any, res: any) => {
-    prisma.users.delete({ where: { user_id: 1 } });
-    // deleteUser(req);
+    //TODO delete user by id
+    const { id } = req.body;
+    prisma.users.delete({ where: { user_id: id } });
     req.logOut();
     res.status(204).end();
   });

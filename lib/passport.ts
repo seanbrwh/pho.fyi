@@ -49,9 +49,6 @@ passport.use(
           return done(null, user);
         }
       );
-
-      // Security-wise, if you hashed the password earlier, you must verify it
-      // if (!user || await argon2.verify(user.password, password))
     }
   )
 );
